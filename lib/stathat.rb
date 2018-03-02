@@ -125,18 +125,16 @@ module StatHat
             rescue
               puts "#{$!.class}: #{$!.message}"
             end
-            @runlock.synchronize {
+            @runlock.synchronize do
               break unless @running
-            }
+            end
           end
         end
       end
     end
 
     def stop_pool
-      @runlock.synchronize {
-        @running = false
-      }
+      @runlock.synchronize { @running = false }
       @pool.each do |th|
         th.join if th && th.alive?
       end
