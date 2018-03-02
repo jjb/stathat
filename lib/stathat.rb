@@ -75,10 +75,10 @@ module StatHat
     def initialize
       @que = Queue.new
       @runlock = Mutex.new
-      run_pool()
+      run_pool
     end
 
-    def finish()
+    def finish
       stop_pool
       # XXX serialize queue?
     end
@@ -133,7 +133,7 @@ module StatHat
       end
     end
 
-    def stop_pool()
+    def stop_pool
       @runlock.synchronize {
         @running = false
       }
