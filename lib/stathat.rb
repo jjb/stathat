@@ -123,7 +123,8 @@ module StatHat
       enqueue(Common::EZ_URL, args, cb)
     end
 
-    private
+  private
+
     def run_pool
       @runlock.synchronize { @running = true }
       @pool = []
@@ -191,7 +192,8 @@ module StatHat
       @parsed['msg']
     end
 
-    private
+  private
+
     def parse
       return unless @parsed.nil?
       return unless @body
