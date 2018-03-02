@@ -23,8 +23,8 @@ module StatHat
                                         uri.query = args.map { |arg, val| arg.to_s + "=" + CGI::escape(val.to_s) }.join('&')
                                 end
 
-                                resp = Net::HTTP.get(uri)
-                                return Response.new(resp)
+                                resp = Net::HTTP.get_response(uri)
+                                return Response.new(resp.body, resp.code.to_i)
                         end
                 end
         end
@@ -174,28 +174,35 @@ module StatHat
         end
 
         class Response
-                def initialize(body)
+                def initialize(body, http_status)
                         @body = body
+                        @http_status = http_status
                         @parsed = nil
                 end
 
                 def valid?
-                        return status == 200
+                        return (200..299).cover? status
                 end
 
                 def status
-                        parse
-                        return @parsed['status']
+                        if @body
+                                parse
+                                return @parsed['status']
+                        else
+                                return @http_status
+                        end
                 end
 
                 def msg
                         parse
+                        return unless @parsed
                         return @parsed['msg']
                 end
 
                 private
                 def parse
                         return unless @parsed.nil?
+                        return unless @body
                         @parsed = JSON.parse(@body)
                 end
         end
