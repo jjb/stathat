@@ -132,7 +132,7 @@ module StatHat
       @que.close
 
       @pool.each do |th|
-        th.join
+        th.join(5)
       end
     end
 
@@ -175,5 +175,13 @@ module StatHat
       return unless @parsed.nil?
       @parsed = JSON.parse(@body)
     end
+  end
+end
+
+%w[INT TERM].each do |signal|
+  old_handler = trap(signal) do
+    puts "StatHat::Reporter.instance.finish in response to #{signal}"; STDOUT.flush
+    StatHat::Reporter.instance.finish
+    old_handler.call if old_handler.respond_to?(:call)
   end
 end
