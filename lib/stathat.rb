@@ -4,6 +4,7 @@ require 'uri'
 require 'json'
 require 'thread'
 require 'singleton'
+require 'pp'
 
 module StatHat
         class Common
