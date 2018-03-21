@@ -1,3 +1,5 @@
+Thread.abort_on_exception = true
+
 require 'rubygems'
 #require 'bundler'
 #begin

@@ -145,7 +145,7 @@ module StatHat
                                                                 point[:cb].call(resp)
                                                         end
                                                 rescue
-                                                        pp $!
+                                                        puts "#{$!.class}: #{$!.message}"
                                                 end
                                                 @runlock.synchronize {
                                                         break unless @running
