@@ -134,7 +134,7 @@ module StatHat
         th.join(5)
       end
 
-      puts "WARNING: The StatHat queue was shut down with #{@queue.size} unprocessed tasks" unless 0 == @que.size
+      puts "WARNING: The StatHat queue was shut down with #{@que.size} unprocessed tasks" unless 0 == @que.size
     end
 
     def enqueue(url, args, cb=nil)
