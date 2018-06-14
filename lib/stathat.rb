@@ -182,7 +182,5 @@ module StatHat
 end
 
 at_exit do
-  puts "Stopping the StatHat::Reporter worker pool..."
   StatHat::Reporter.instance.finish
-  puts "The StatHat::Reporter worker pool has been stopped."
 end
